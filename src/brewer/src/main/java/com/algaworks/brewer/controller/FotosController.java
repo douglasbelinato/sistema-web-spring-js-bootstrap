@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.algaworks.brewer.dto.FotoDTO;
 import com.algaworks.brewer.storage.FotoStorageRunnable;
 
 // Auala 14.3. Upload da foto com Ajax
@@ -26,11 +27,11 @@ public class FotosController {
 	// @PostMapping - nova anotação a partir do Spring 4.3 
 	// Spring < 4.3 deve-se continuar usando @RequestMapping(method = RequestMethod.POST)
 	@PostMapping
-	public DeferredResult<String> upload(@RequestParam("files[]") MultipartFile[] files) {
+	public DeferredResult<FotoDTO> upload(@RequestParam("files[]") MultipartFile[] files) {
 		
 		// Aula - 14.4. Melhorando a disponibilidade da aplicação - retorno assíncrono
 		// Para retorno assíncrono o tipo de retorno do método é DeferredResult<T>
-		DeferredResult<String> resultado = new DeferredResult<>();
+		DeferredResult<FotoDTO> resultado = new DeferredResult<>();
 		
 		Thread thread = new Thread(new FotoStorageRunnable(files, resultado));
 		thread.start();
