@@ -21,7 +21,9 @@ public class FotoStorageLocal implements FotoStorage {
 	private Path localTemporario;
 	
 	public FotoStorageLocal() {
-		this(FileSystems.getDefault().getPath(System.getenv("USERPROFILE"), ".brewerfotos"));		
+		this(FileSystems.getDefault().getPath(System.getenv("USERPROFILE"), ".brewerfotos"));
+		// com user.home ele pega usuario com caracteres especiais tbm
+		// this(FileSystems.getDefault().getPath(System.getenv("user.home"), ".brewerfotos"));		
 	}
 	
 	public FotoStorageLocal(Path path) {
@@ -47,6 +49,15 @@ public class FotoStorageLocal implements FotoStorage {
 		}
 		
 		return novoNome;
+	}
+	
+	@Override
+	public byte[] recuperarFotoTemporaria(String nome) {
+		try {
+			return Files.readAllBytes(this.localTemporario.resolve(nome));
+		} catch (IOException e) {
+			throw new RuntimeException("Erro lendo a foto temporária", e);
+		}
 	}
 	
 	private void criarPastas() {

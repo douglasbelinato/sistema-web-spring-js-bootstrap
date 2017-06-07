@@ -1,6 +1,8 @@
 package com.algaworks.brewer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +44,13 @@ public class FotosController {
 		thread.start();
 		
 		return resultado;
+	}
+	
+	// uso expressão regular :.* depois da variável nome para determinar que eu preciso ler inclusive a extensão
+	// da foto que virá na URL via GET. Caso eu não informe, ele não lê a extensão e entra somente o nome do arquivo.
+	@GetMapping("/temp/{nome:.*}")
+	public byte[] recuperarFotoTemporaria(@PathVariable String nome) {
+		return fotoStorage.recuperarFotoTemporaria(nome);
 	}
 
 }
