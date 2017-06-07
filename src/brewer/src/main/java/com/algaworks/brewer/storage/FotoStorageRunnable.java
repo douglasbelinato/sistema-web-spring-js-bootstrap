@@ -19,11 +19,8 @@ public class FotoStorageRunnable implements Runnable {
 
 	@Override
 	public void run() {
-		fotoStorage.salvarTemporariamente(files);
-		
-		String nomeFoto = files[0].getOriginalFilename();
+		String nomeFoto = this.fotoStorage.salvarTemporariamente(files);
 		String contentType = files[0].getContentType();
-		
 		// quando faço setResult o Spring entende que eu já posso disparar a thread assíncrona de resposta
 		resultado.setResult(new FotoDTO(nomeFoto, contentType));
 	}

@@ -1,9 +1,11 @@
 package com.algaworks.brewer.storage.local;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,26 @@ public class FotoStorageLocal implements FotoStorage {
 		criarPastas();
 	}
 
+	@Override
+	public String salvarTemporariamente(MultipartFile[] files) {
+		String novoNome = null;
+		
+		if (files != null && files.length > 0) {
+			MultipartFile arquivo = files[0];			
+			novoNome = renomearArquivo(arquivo.getOriginalFilename());
+			try {
+				// FileSystems.getDefault().getSeparator() --> para funcionar tanto no Windows quanto no Linux
+				File pathTemp = new File(this.localTemporario.toAbsolutePath().toString() + 
+										 FileSystems.getDefault().getSeparator() + novoNome);
+				arquivo.transferTo(pathTemp);
+			} catch (IOException e) {
+				throw new RuntimeException("Erro salvando a foto na pasta temporária", e);
+			}
+		}
+		
+		return novoNome;
+	}
+	
 	private void criarPastas() {
 		try {
 			Files.createDirectories(this.local);
@@ -48,10 +70,14 @@ public class FotoStorageLocal implements FotoStorage {
 			throw new RuntimeException("Erro criando pasta para salvar foto", e);
 		}		
 	}
-
-	@Override
-	public void salvarTemporariamente(MultipartFile[] files) {
-		System.out.println("Salvando a foto temporariamente");
+	
+	private String renomearArquivo(String nomeOriginal) {
+		// Gera UUID para que cada imagem tenha um identificador único a fim de evitar subrescrever fotos com nomes iguais
+		String novoNome = UUID.randomUUID().toString() + "_" + nomeOriginal;
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug(String.format("Nome original: %s", "Novo nome: %s", nomeOriginal, novoNome));
+		}
+		return novoNome;
 	}
 
 }
