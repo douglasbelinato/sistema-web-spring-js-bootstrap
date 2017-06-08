@@ -59,11 +59,12 @@ Brewer.EstiloCadastroRapido = (function(){
 		this.modal.modal('hide');
 	}
 	
+	// retorno da função construtora
 	return EstiloCadastroRapido;
 	
 })();
 
-
+// Aqui faço as coisas acontecerem! Inicio minha execução.
 $(function() {
 	
 	var estiloCadastroRapido = new Brewer.EstiloCadastroRapido();

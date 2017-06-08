@@ -79,7 +79,7 @@ public class FotoStorageLocal implements FotoStorage {
 			
 		} catch (IOException e) {
 			throw new RuntimeException("Erro criando pasta para salvar foto", e);
-		}		
+		}
 	}
 	
 	private String renomearArquivo(String nomeOriginal) {
