@@ -7,6 +7,11 @@
 	font-size: 18px;
 }
 
+/* O conteúdo será adicionado depois do elemento que contém a classe control-label */
+.bw-required > .control-label:after {
+	content: "*"
+}
+
 /*
 ***********************************************************
 * COMPONENTES
