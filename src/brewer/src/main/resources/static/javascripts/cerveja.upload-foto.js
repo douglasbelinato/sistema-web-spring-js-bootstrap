@@ -32,6 +32,13 @@ Brewer.UploadFoto = (function() {
 		// Iniciando configuração para o UIKit através do objeto acima
 		UIkit.uploadSelect($('#upload-select'), settings);
 		UIkit.uploadDrop(this.uploadDrop, settings);
+		
+		// 14.10. Mantendo a foto na validação
+		if (this.inputNomeFoto.val()) {
+			// .call para poder passar (forçar) o objeto this para o contexto da função onUploadCompleto. 
+			// Além disso passo o objeto necessário com nome e contentType como parâmetro.
+			onUploadCompleto.call(this, { nome: this.inputNomeFoto.val(), contentType: this.inputNomeFoto.val()});
+		}
 	}
 	
 	function onUploadCompleto(resposta) {
