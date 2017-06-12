@@ -27,7 +27,7 @@ public class ClassForErrorAttributeTagProcessor extends AbstractAttributeTagProc
 		// Lógica do processador para verificar se há erro no atributo
 		boolean temErro = FieldUtils.hasErrors(context, attributeValue);
 		
-		if (temErro) {			
+		if (temErro) {
 			String classesCssExistentes = tag.getAttributeValue("class"); // obtém as Classes CSS que já existem nessa tag
 			structureHandler.setAttribute("class", classesCssExistentes + " has-error"); // incrementa classe has-error do Bootstrap 
 		}

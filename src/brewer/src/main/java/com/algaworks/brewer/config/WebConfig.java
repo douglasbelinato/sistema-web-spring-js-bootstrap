@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
@@ -46,11 +47,15 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 // @EnableWebMvc >>> Habilita o projeto para ser web mvc
 
+// @EnableSpringDataWebSupport >>> Permite uso de funcionalidades específicas do Spring Data junto
+// com o Spring MVC, como por exemplo, o Pageable (paginação de  resultados).
+
 // Implemento a interface ApplicationContextAware para que quando a aplicação "subir" eu possa receber
 // no método setApplicationContext(...) o arquivo applicationContext como parametro.
 @Configuration
 @ComponentScan(basePackageClasses = { CervejasController.class })
 @EnableWebMvc
+@EnableSpringDataWebSupport
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;

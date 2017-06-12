@@ -39,7 +39,7 @@ public class FotoStorageLocal implements FotoStorage {
 		String novoNome = null;
 		
 		if (files != null && files.length > 0) {
-			MultipartFile arquivo = files[0];			
+			MultipartFile arquivo = files[0];
 			novoNome = renomearArquivo(arquivo.getOriginalFilename());
 			try {
 				// FileSystems.getDefault().getSeparator() --> para funcionar tanto no Windows quanto no Linux
