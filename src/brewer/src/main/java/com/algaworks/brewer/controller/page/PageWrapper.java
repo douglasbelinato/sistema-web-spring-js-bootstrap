@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -43,8 +45,28 @@ public class PageWrapper<T> {
 	}
 	
 	public String urlParaPagina(int pagina) {
-		// .build(true).encode() para formatar valores no encode correto (exemplo: valores numericos)
+		// .build(true).encode() para formatar valores passados via GET no encode correto (exemplo: valores numericos)
 		return uriBuilder.replaceQueryParam("page", pagina).build(true).encode().toUriString();
+	}
+	
+	public String urlOrdenada(String propriedade) {
+		UriComponentsBuilder uriBuilderOrder = UriComponentsBuilder
+											 	.fromUriString(uriBuilder.build(true).encode().toUriString());
+		
+		String valorSort = String.format("%s,%s", propriedade, inverterDirecao(propriedade));
+		
+		return uriBuilderOrder.replaceQueryParam("sort", valorSort).build(true).encode().toUriString();
+	}
+	
+	public String inverterDirecao(String propriedade) {
+		String direcao = "asc";
+		Order order = page.getSort() != null ? page.getSort().getOrderFor(propriedade) : null;
+		
+		if (order != null) {
+			direcao = Sort.Direction.ASC.equals(order.getDirection()) ? "desc" : "asc"; 
+		}
+		
+		return direcao;
 	}
 
 }
