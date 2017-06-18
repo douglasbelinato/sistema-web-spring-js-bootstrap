@@ -1,0 +1,10 @@
+# Compiled files and Eclipse IDE configuration files
+/src/.metadata
+/src/.recommenders
+/src/RemoteSystemsTempFiles
+/src/Servers
+/src/brewer/target
+/src/brewer/.settings
+*.classpath
+*.project
+*.tern-project
