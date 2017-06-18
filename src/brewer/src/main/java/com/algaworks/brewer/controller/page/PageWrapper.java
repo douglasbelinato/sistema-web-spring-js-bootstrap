@@ -46,6 +46,7 @@ public class PageWrapper<T> {
 	
 	public String urlParaPagina(int pagina) {
 		// .build(true).encode() para formatar valores passados via GET no encode correto (exemplo: valores numericos)
+		// url --> ?page={pagina}
 		return uriBuilder.replaceQueryParam("page", pagina).build(true).encode().toUriString();
 	}
 	
@@ -55,6 +56,7 @@ public class PageWrapper<T> {
 		
 		String valorSort = String.format("%s,%s", propriedade, inverterDirecao(propriedade));
 		
+		// url --> ?sort=propriedade,{asc|desc}
 		return uriBuilderOrder.replaceQueryParam("sort", valorSort).build(true).encode().toUriString();
 	}
 	
@@ -67,6 +69,20 @@ public class PageWrapper<T> {
 		}
 		
 		return direcao;
+	}
+	
+	public boolean descendente(String propriedade) {
+		return inverterDirecao(propriedade).equals("asc");
+	}
+	
+	public boolean ordenada(String propriedade) {
+		Order order = page.getSort() != null ? page.getSort().getOrderFor(propriedade) : null;
+		
+		if (order == null) {
+			return false;
+		}
+		
+		return page.getSort().getOrderFor(propriedade) != null ? true : false;
 	}
 
 }

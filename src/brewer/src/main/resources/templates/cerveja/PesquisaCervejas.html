@@ -98,14 +98,12 @@
 						<tr>
 							<th class="table-cervejas-col-foto"></th>
 							<th class="table-cervejas-col-sku">
-								<a th:href="${pagina.urlOrdenada('sku')}">SKU
-									<span class="dropup"><span class="caret"></span></span>
-								</a>
+								<!-- <th:block th:replace="fragments/Ordenacao :: order (${pagina}, 'sku', 'SKU')"></th:block> -->
+								<brewer:order page="${pagina}" field="sku" text="SKU"/>
 							</th>
 							<th class="table-cervejas-col-nome">
-								<a th:href="${pagina.urlOrdenada('nome')}">Nome
-									<span class="dropup"><span class="caret"></span></span>
-								</a>
+								<!-- <th:block th:replace="fragments/Ordenacao :: order (${pagina}, 'nome', 'Nome')"></th:block> -->
+								<brewer:order page="${pagina}" field="nome" text="Nome"/>
 							</th>
 							<th class="table-cervejas-col-estilo">Estilo</th>
 							<th class="table-cervejas-col-origem">Origem</th>
