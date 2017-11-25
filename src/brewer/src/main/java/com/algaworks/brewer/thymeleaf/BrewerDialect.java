@@ -10,6 +10,7 @@ import org.thymeleaf.standard.StandardDialect;
 import com.algaworks.brewer.thymeleaf.processor.ClassForErrorAttributeTagProcessor;
 import com.algaworks.brewer.thymeleaf.processor.MessageElementTagProcessor;
 import com.algaworks.brewer.thymeleaf.processor.OrderElementTagProcessor;
+import com.algaworks.brewer.thymeleaf.processor.PaginationElementTagProcessor;
 
 public class BrewerDialect extends AbstractProcessorDialect {
 
@@ -24,6 +25,7 @@ public class BrewerDialect extends AbstractProcessorDialect {
 		processadores.add(new ClassForErrorAttributeTagProcessor(dialectPrefix));	// tag <brewer:classforerror/>
 		processadores.add(new MessageElementTagProcessor(dialectPrefix));			// tag <brewer:message/>
 		processadores.add(new OrderElementTagProcessor(dialectPrefix)); 			// tag <brewer:order/>
+		processadores.add(new PaginationElementTagProcessor(dialectPrefix)); 		// tag <brewer:pagination/>
 		return processadores;
 	}
 

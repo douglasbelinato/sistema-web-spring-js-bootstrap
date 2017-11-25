@@ -9,15 +9,15 @@ import org.thymeleaf.processor.element.AbstractElementTagProcessor;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
 import org.thymeleaf.templatemode.TemplateMode;
 
-public class OrderElementTagProcessor extends AbstractElementTagProcessor {
-
-	private static final String NOME_TAG = "order";
+public class PaginationElementTagProcessor extends AbstractElementTagProcessor {
+	
+	private static final String NOME_TAG = "pagination";
 	private static final int PRECEDENCIA = 1000;
-
-	public OrderElementTagProcessor(String dialectPrefix) {
+	
+	public PaginationElementTagProcessor(String dialectPrefix) {
 		super(TemplateMode.HTML, dialectPrefix, NOME_TAG, true, null, false, PRECEDENCIA);
 	}
-	
+
 	@Override
 	protected void doProcess(ITemplateContext context, IProcessableElementTag tag,
 			IElementTagStructureHandler structureHandler) {
@@ -25,15 +25,13 @@ public class OrderElementTagProcessor extends AbstractElementTagProcessor {
 		IModelFactory modelFactory = context.getModelFactory();
 		IModel model = modelFactory.createModel();
 		
-		// Atributos da nova tag que estou criando
-		IAttribute page = tag.getAttribute("page");   // atributo page
-		IAttribute field = tag.getAttribute("field"); // atributo field
-		IAttribute text = tag.getAttribute("text");   // atributo text
+		// Atributo da nova tag que estou criando
+		IAttribute page = tag.getAttribute("page");		
 		
 		// No model eu adiciono os elementos HTML que eu quero criar
 		model.add(modelFactory.createStandaloneElementTag("th:block", 
 				  "th:replace", 
-				  String.format("fragments/Ordenacao :: order (%s, %s, %s)", page.getValue(), field.getValue(), text.getValue())));
+				  String.format("fragments/Paginacao :: pagination (%s)", page.getValue())));
 		
 		// Se eu estive adicionando ao modelFactory apenas código HTML puro, que não precisa de processamento da 
 		// Template Engine, então eu poderia passar false no segundo parâmetro. Mas como estou adicionando tags 
@@ -42,5 +40,6 @@ public class OrderElementTagProcessor extends AbstractElementTagProcessor {
 		structureHandler.replaceWith(model, true);
 		
 	}
+	
 
 }
