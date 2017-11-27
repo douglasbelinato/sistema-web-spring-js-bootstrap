@@ -20,7 +20,50 @@ Brewer.MaskMoney = (function() {
 	return MaskMoney;
 })();
 
+Brewer.MaskPhoneNumber = (function() {
+	
+	function MaskPhoneNumber() {
+		this.inputPhoneNumber = $('.js-phone-number');		
+	}
+	      
+	MaskPhoneNumber.prototype.enable = function() {
+		var maskBehavior = function (val) {
+			return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+		};
+		
+		var objOptions = {
+				onKeyPress: function(val, e, field, options) {
+					field.mask(maskBehavior.apply({}, arguments), options);
+					}
+		};
+		
+		this.inputPhoneNumber.mask(maskBehavior, objOptions);
+	}
+	
+	return MaskPhoneNumber;
+}());
+
+Brewer.MascaraCep = (function () {
+	
+	function MascaraCep() {
+		this.inputCepNumber = $('.js-cep-number');
+	}
+	
+	MascaraCep.prototype.enable = function () {
+		this.inputCepNumber.mask('00.000-000');
+	}
+	
+	return MascaraCep;
+	
+}());
+
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.enable();
+	
+	var maskPhoneNumber = new Brewer.MaskPhoneNumber();
+	maskPhoneNumber.enable();
+	
+	var mascaraCep = new Brewer.MascaraCep();
+	mascaraCep.enable();
 });

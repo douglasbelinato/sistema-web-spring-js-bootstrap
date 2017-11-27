@@ -4,6 +4,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
@@ -25,9 +26,11 @@ import com.algaworks.brewer.repository.Cervejas;
  * 		enableDefaultTransactions --> para que as classes de repositório não utilizem 
  * 									  o controle de transação default do Spring. Pelo default,
  * 									  até as consultas abrem (begin) e encerram (commit) transação. 
+ * @ComponentScan para habilitar a injeção de dependências dos componentes que estão no pacote da classe Cervejas.class
  * @EnableTransactionManagement para informar que o controle de transação será customizado, e não o default do Spring.   
  */
 @Configuration
+@ComponentScan(basePackageClasses = Cervejas.class)
 @EnableJpaRepositories(basePackageClasses = Cervejas.class, enableDefaultTransactions = false)
 @EnableTransactionManagement
 public class JPAConfig {
