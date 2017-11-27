@@ -31,16 +31,13 @@
 					<div class="col-sm-4  form-group  bw-required">
 						<label for="tipoPessoa" class="control-label">Tipo pessoa</label>
 						<div>
-							<div class="radio  radio-inline">
-								<input id="id_FISICA" type="radio" name="tipoPessoa" class="js-radio-tipo-pessoa" data-documento="CPF"
-									   data-mascara="000.000.000-00">
-								<label class="control-label" for="id_FISICA">Física</label>
-							</div>
-							<div class="radio  radio-inline">
-								<input id="id_JURIDICA" type="radio" name="tipoPessoa" class="js-radio-tipo-pessoa" data-documento="CNPJ"
-									   data-mascara="00.000.000/0000-00">
-								<label class="control-label" for="id_JURIDICA">Jurídica</label>
-							</div>
+							<th:block th:each="tipoPessoa : ${tiposPessoa}">
+								<div class="radio  radio-inline">
+									<input th:id="|id_${tipoPessoa}|" type="radio" name="tipoPessoa" class="js-radio-tipo-pessoa" 
+										   data:documento="${tipoPessoa.documento}" data:mascara="${tipoPessoa.mascara}" />										   
+									<label class="control-label" th:for="|id_${tipoPessoa}|" th:text="${tipoPessoa.descricao}">Tipo</label>
+								</div>
+							</th:block>
 						</div>
 					</div>
 					
