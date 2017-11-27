@@ -32,19 +32,21 @@
 						<label for="tipoPessoa" class="control-label">Tipo pessoa</label>
 						<div>
 							<div class="radio  radio-inline">
-								<input type="radio" name="tipoPessoa">
-								<label>Física</label>
+								<input id="id_FISICA" type="radio" name="tipoPessoa" class="js-radio-tipo-pessoa" data-documento="CPF"
+									   data-mascara="000.000.000-00">
+								<label class="control-label" for="id_FISICA">Física</label>
 							</div>
 							<div class="radio  radio-inline">
-								<input type="radio" name="tipoPessoa">
-								<label>Jurídica</label>
+								<input id="id_JURIDICA" type="radio" name="tipoPessoa" class="js-radio-tipo-pessoa" data-documento="CNPJ"
+									   data-mascara="00.000.000/0000-00">
+								<label class="control-label" for="id_JURIDICA">Jurídica</label>
 							</div>
 						</div>
 					</div>
 					
 					<div class="col-sm-8  form-group  bw-required">
 						<label for="cpfCnpj" class="control-label">CPF/CNPJ</label>
-						<input id="cpfCnpj" type="text" class="form-control"/>
+						<input id="cpfCnpj" type="text" class="form-control" disabled/>
 					</div>
 				</div>
 				
@@ -105,6 +107,10 @@
 		</div>		
 					
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/cliente.mascara-cpf-cnpj.js}"></script>		
+	</th:block>
 
 </body>
 </html>
