@@ -43,10 +43,27 @@ Brewer.MaskPhoneNumber = (function() {
 	return MaskPhoneNumber;
 }());
 
+Brewer.MascaraCep = (function () {
+	
+	function MascaraCep() {
+		this.inputCepNumber = $('.js-cep-number');
+	}
+	
+	MascaraCep.prototype.enable = function () {
+		this.inputCepNumber.mask('00.000-000');
+	}
+	
+	return MascaraCep;
+	
+}());
+
 $(function() {
 	var maskMoney = new Brewer.MaskMoney();
 	maskMoney.enable();
 	
 	var maskPhoneNumber = new Brewer.MaskPhoneNumber();
 	maskPhoneNumber.enable();
+	
+	var mascaraCep = new Brewer.MascaraCep();
+	mascaraCep.enable();
 });
