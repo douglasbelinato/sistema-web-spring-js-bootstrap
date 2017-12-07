@@ -10,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -24,7 +26,7 @@ import com.algaworks.brewer.model.validation.group.CnpjGroup;
 import com.algaworks.brewer.model.validation.group.CpfGroup;
 
 @Entity
-@Table(name= "clientes")
+@Table(name= "cliente")
 @GroupSequenceProvider(ClienteGroupSequenceProvider.class) // Valida o Bean segundo uma sequência que irei passar
 public class Cliente implements Serializable {
 	
@@ -57,6 +59,11 @@ public class Cliente implements Serializable {
 	
 	@Embedded
 	private Endereco endereco;
+	
+	@PrePersist @PreUpdate	
+	private void prePersistPreUpdate() {
+		this.cpfCnpj = this.cpfCnpj.replaceAll("\\.|-|/", "");
+	}
 
 	public Long getCodigo() {
 		return codigo;
