@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 // @Embeddable indica que essa classe pode ser enbutida em outra classe modelo.
 // Como irei incluir ela em outra classe, não preciso colocar equals e hashcode
@@ -24,6 +25,9 @@ public class Endereco implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "codigo_cidade")
 	private Cidade cidade;
+	
+	@Transient
+	private Estado estado;
 
 	public String getLogradouro() {
 		return logradouro;
@@ -63,6 +67,14 @@ public class Endereco implements Serializable {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 }

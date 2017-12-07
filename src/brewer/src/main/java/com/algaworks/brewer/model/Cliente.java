@@ -11,24 +11,33 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
+import org.hibernate.validator.group.GroupSequenceProvider;
+
+import com.algaworks.brewer.model.validation.ClienteGroupSequenceProvider;
+import com.algaworks.brewer.model.validation.group.CnpjGroup;
+import com.algaworks.brewer.model.validation.group.CpfGroup;
 
 @Entity
 @Table(name= "clientes")
+@GroupSequenceProvider(ClienteGroupSequenceProvider.class) // Valida o Bean segundo uma sequência que irei passar
 public class Cliente implements Serializable {
 	
 	private static final long serialVersionUID = -799713344644516271L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;	
+	private Long codigo;
 	
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 	
-	@NotBlank(message = "Tipo Pessoa é obrigatório")
-	
+	@NotNull(message = "Tipo Pessoa é obrigatório")
 	// EnumType.ORDINAL --> Grava no BD os valores inteiros ordinais de cada item da enum (0, 1, ...)
 	// EnumType.STRING --> Grava no BD o texto do valor de cada item da enum (nesse caso, JURIDICA e FISICA)
 	@Enumerated(EnumType.STRING)
@@ -36,13 +45,14 @@ public class Cliente implements Serializable {
 	private TipoPessoa tipoPessoa;
 	
 	@NotBlank(message = "Número CPF/CNPJ é obrigatório")
+	@CPF(groups = CpfGroup.class)  // Só valida CPF se o grupo (interface ou classe de marcação) estiver selecionado
+	@CNPJ(groups = CnpjGroup.class) // Só valida CNPJ se o grupo (interface ou classe de marcação) estiver selecionado
 	@Column(name = "cpf_cnpj")
 	private String cpfCnpj;
 	
-	@NotBlank(message = "Telefone é obrigatório")
 	private String telefone;
 	
-	@NotBlank(message = "E-mail é obrigatório")
+	@Email(message = "E-mail inválido")
 	private String email;
 	
 	@Embedded

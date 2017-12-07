@@ -27,15 +27,24 @@ Brewer.ComboCidade = (function () {
 		this.comboEstado = comboEstado;
 		this.combo = $('#cidade');
 		this.imgLoading = $('.js-img-loading');
+		this.inputHiddenCidadeSelecionada = $('#inputHiddenCidadeSelecionada');
 	}
 	
 	ComboCidade.prototype.iniciar = function() {
 		reset.call(this);
 		// 4. Ao identificar evento 'alterado', chama função onEstadoAlterado
 		this.comboEstado.on('alterado', onEstadoAlterado.bind(this));
+		var codigoEstado = this.comboEstado.combo.val();		
+		// undefined para o parâmetro evento
+		inicializarCidades.call(this, codigoEstado);
 	}
 	
-	function onEstadoAlterado(eveno, codigoEstado) {
+	function onEstadoAlterado(evento, codigoEstado) {
+		this.inputHiddenCidadeSelecionada.val('');
+		inicializarCidades.call(this, codigoEstado);
+	}
+	
+	function inicializarCidades(codigoEstado) {
 		if (codigoEstado) {
 			var resposta = $.ajax({
 				url: this.combo.data('url'),
@@ -63,7 +72,12 @@ Brewer.ComboCidade = (function () {
 		// Agora adiciono tudo de uma vez.
 		// A operação join junta todos os elementos adicionados no push do array 'options'. 
 		this.combo.html(options.join(''));
-		this.combo.removeAttr('disabled')
+		this.combo.removeAttr('disabled');
+		
+		var codigoCidadeSelecionada = this.inputHiddenCidadeSelecionada.val();
+		if (codigoCidadeSelecionada) {
+			this.combo.val(codigoCidadeSelecionada);
+		}
 	}
 	
 	function reset() {
