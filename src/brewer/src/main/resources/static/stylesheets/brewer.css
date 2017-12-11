@@ -121,3 +121,17 @@
 .table-estilos-col-nome {
 
 }
+
+/* Colunas - Pesquisa de Clientes */
+.table-clientes-col-nome {
+	width: 595px;
+}
+
+.table-clientes-col-tipoPessoa {	
+}
+
+.table-clientes-col-cpfCnpj {	
+}
+
+.table-clientes-col-telefone {	
+}

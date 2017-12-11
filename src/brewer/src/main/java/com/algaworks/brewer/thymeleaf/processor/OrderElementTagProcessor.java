@@ -33,7 +33,7 @@ public class OrderElementTagProcessor extends AbstractElementTagProcessor {
 		// No model eu adiciono os elementos HTML que eu quero criar
 		model.add(modelFactory.createStandaloneElementTag("th:block", 
 				  "th:replace", 
-				  String.format("fragments/Ordenacao :: order (%s, %s, %s)", page.getValue(), field.getValue(), text.getValue())));
+				  String.format("fragments/Ordenacao :: order (%s, %s, '%s')", page.getValue(), field.getValue(), text.getValue())));
 		
 		// Se eu estive adicionando ao modelFactory apenas código HTML puro, que não precisa de processamento da 
 		// Template Engine, então eu poderia passar false no segundo parâmetro. Mas como estou adicionando tags 
