@@ -66,6 +66,12 @@ public class Cliente implements Serializable {
 	private void prePersistPreUpdate() {
 		this.cpfCnpj = TipoPessoa.removerFormatacaoCpfCnpj(this.cpfCnpj);
 	}
+	
+	// Callback JPA -- Após consultar a base
+	@PostLoad
+	private void postLoad() {
+		this.cpfCnpj = this.tipoPessoa.formatar(this.cpfCnpj);
+	}
 
 	public Long getCodigo() {
 		return codigo;

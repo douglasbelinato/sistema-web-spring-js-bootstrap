@@ -124,14 +124,28 @@
 
 /* Colunas - Pesquisa de Clientes */
 .table-clientes-col-nome {
-	width: 595px;
 }
 
-.table-clientes-col-tipoPessoa {	
+.table-clientes-col-tipoPessoa {
+	width: 120px;
+	text-align: center;
 }
 
-.table-clientes-col-cpfCnpj {	
+.table-clientes-col-cpfCnpj {
+	width: 140px;
+	text-align: right;
 }
 
-.table-clientes-col-telefone {	
+.table-clientes-col-telefone {
+	width: 140px;
+	text-align: right;
+}
+
+.table-clientes-col-cidade-estado {
+	width: 140px;
+	text-align: right;
+}
+
+.table-clientes-col-acoes {
+	width: 80px;
 }

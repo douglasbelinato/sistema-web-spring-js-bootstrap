@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,6 +38,10 @@ public class ClientesImpl implements ClientesQueries {
 		
 		paginacaoUtil.preparar(criteria, pageable);
 		adicionarFiltro(filtro, criteria);
+		// É preciso incluir estes Left Joins para evitar erro de LAZY INITIALIZE EXCEPTION
+		// ao tentar acessar os dados de cidade/estado na tela de consultar clientes.
+		criteria.createAlias("endereco.cidade", "c", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("c.estado", "e", JoinType.LEFT_OUTER_JOIN);
 		
 		return new PageImpl<>(criteria.list(), pageable, total(filtro));
 	}
